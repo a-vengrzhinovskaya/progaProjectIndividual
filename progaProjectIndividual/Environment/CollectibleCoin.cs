@@ -3,13 +3,23 @@
 namespace progaProjectIndividual {
     [Serializable]
     public class CollectibleCoin {
-        private const int CoinsAmount = 10;
+        private const int MaxCoinsAmount = 10;
         private int CurrentCoinIndex = 0;
-        public bool[] Coins { get; private set; } = new bool[CoinsAmount];
+        public bool[] Coins { get; set; } = new bool[MaxCoinsAmount];
 
         public void ChangeAmount() {
             Coins[CurrentCoinIndex] = true;
             ++CurrentCoinIndex;
+        }
+
+        public int GetAmountCollected() {
+            var Amount = 0;
+            foreach (var Coin in Coins) {
+                if (Coin != false) {
+                    ++Amount;
+                }
+            }
+            return Amount;
         }
 
         public void Serialize(FileStream file) {

@@ -6,9 +6,10 @@ namespace progaProjectIndividual {
 
     public sealed class GameManager {
         private const int WaitingTime = 800;
+        private const string SavePath = "C:/Users/aveng/source/repos/progaProjectIndividual/progaProjectIndividual/coins_data.xml";
         private static GameManager Instance;
         private Player Player;
-        private CollectibleCoin Coins;
+        private CollectibleCoin Coins = new CollectibleCoin();
         private List<String> Paths = new List<String> {
                 "You are walking along a forest road.\nSuddenly it diverges into two paths.\nWhich one will you choose?\n",
                 "You have entered an ancient castle.\nWalking through its huge corridors, you come across two doors.\nWhich one will you choose?\n",
@@ -27,11 +28,11 @@ namespace progaProjectIndividual {
         }
 
         public void Start() {
-            var CoinsData = new FileStream("C:/Users/aveng/source/repos/progaProjectIndividual/progaProjectIndividual/coins_data.bin", FileMode.OpenOrCreate, FileAccess.Read);
+            var CoinsData = new FileStream(SavePath, FileMode.OpenOrCreate, FileAccess.Read);
             if (CoinsData.Length != 0) {
                 Coins.Deserialize(CoinsData);
-                CoinsData.Close();
             }
+            CoinsData.Close();
 
             var NotSet = true;
 
@@ -41,7 +42,8 @@ namespace progaProjectIndividual {
                 Console.WriteLine("Warrion");
                 Console.WriteLine("Wizard");
                 Console.WriteLine("Archer");
-                Console.WriteLine("\nType 0 for Warrior, 1 for Wizard, 2 for Archer");
+                Console.WriteLine("\nType 0 for Warrior, 1 for Wizard, 2 for Archer\n");
+                Console.WriteLine($"\nRare coins collected: {Coins.GetAmountCollected()}/10");
 
                 switch (Console.ReadLine()) {
                     case "0": {
@@ -77,9 +79,8 @@ namespace progaProjectIndividual {
         }
 
         public void Move() {
-            var rand = new Random();
-            var CurrentPathIndex = rand.Next(0, Paths.Count - 1);
-            var CurrentPath = Paths[CurrentPathIndex];
+            var Rand = new Random();
+            var CurrentPath = Paths[Rand.Next(0, Paths.Count - 1)];
             Paths.Remove(CurrentPath);
 
 
@@ -115,8 +116,26 @@ namespace progaProjectIndividual {
         }
 
         private void NextRoom() {
-            //TODO: генерация следующей комнаты
+            var Rand = new Random();
+            var Chance = Rand.Next(0, 100);
+            if (Chance > 90) {
+                var Room = new CoinRoom();
+                Room.GetRoomEffect(Coins, Player);
+            } else if (Chance > 60) {
+                var Room = new HealRoom();
+                Room.GetRoomEffect(Coins, Player);
+            } else {
+                var Room = new EnemyRoom();
+                Room.GetRoomEffect(Coins, Player);
+            }
+            Console.ReadKey();
+            Console.Clear();
+        }
 
+        public void SaveCoins() {
+            var CoinsData = new FileStream(SavePath, FileMode.OpenOrCreate, FileAccess.Write);
+            Coins.Serialize(CoinsData);
+            CoinsData.Close();
         }
     }
 }

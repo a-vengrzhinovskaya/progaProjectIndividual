@@ -1,9 +1,14 @@
 ﻿namespace progaProjectIndividual.Characters {
     public class Archer : Player, IObservable {
-        protected override int Health { get; set; } = 100;
+        public override int MaxHealth { get; } = 100;
+        protected override int Health { get; set; }
         protected override int Damage { get; set; } = 20;
 
         private List<IObserver> observers = new List<IObserver>();
+
+        public Archer() {
+            Health = MaxHealth;
+        }
 
         public override object UseAbility() {
             return 1;

@@ -1,29 +1,23 @@
 ﻿namespace progaProjectIndividual {
     public abstract class Room {
-        protected CollectibleCoin Coins { get; set; }
-        protected Player Player { get; set; }
-
-        public Room(CollectibleCoin coins, Player player) {
-            coins = Coins;
-            player = Player;
-        }
-
-        public abstract void GetRoomEffect();
+        public abstract void GetRoomEffect(CollectibleCoin coins, Player player);
     }
 
     public class CoinRoom : Room {
-        public CoinRoom(CollectibleCoin coins, Player player) : base(coins, player) { }
-
-        public override void GetRoomEffect() {
-            Coins.ChangeAmount();
+        public override void GetRoomEffect(CollectibleCoin coins, Player player) {
+            Console.WriteLine("\nYou found a rare coin!\n");
+            coins.ChangeAmount();
+            Console.WriteLine($"\nHP: {player.GetHP()}/{player.MaxHealth}");
         }
     }
 
     public class HealRoom : Room {
-        public HealRoom(CollectibleCoin coins, Player player) : base(coins, player) { }
-
-        public override void GetRoomEffect() {
-            Player.Heal(20);
+        public override void GetRoomEffect(CollectibleCoin coins, Player player) {
+            Console.WriteLine("\nYour HP restored by 20.\n");
+            if (player.GetHP() < player.MaxHealth) {
+                player.Heal(20);
+            }
+            Console.WriteLine($"\nHP: {player.GetHP()}/{player.MaxHealth}");
         }
     }
 
@@ -31,10 +25,9 @@
         //TODO: сюда запихать всех врагов
         //private List<Enemy> Enemies = new List<Enemy> 
 
-        public EnemyRoom(CollectibleCoin coins, Player player) : base(coins, player) { }
-
-        public override void GetRoomEffect() {
-            Console.WriteLine("It's enemy rooooom!!");
+        public override void GetRoomEffect(CollectibleCoin coins, Player player) {
+            Console.WriteLine("It's enemy rooooom!!\n");
+            Console.WriteLine($"\nHP: {player.GetHP()}/{player.MaxHealth}");
         }
     }
 }

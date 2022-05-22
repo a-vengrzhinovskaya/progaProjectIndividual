@@ -1,5 +1,6 @@
 ﻿namespace progaProjectIndividual {
     public abstract class Character {
+        public abstract int MaxHealth { get; }
         protected abstract int Health { get; set; }
         protected abstract int Damage { get; set; }
 
@@ -13,6 +14,10 @@
 
         public void Heal(int amount) {
             Health += amount;
+        }
+
+        public int GetHP() {
+            return Health;
         }
     }
 }

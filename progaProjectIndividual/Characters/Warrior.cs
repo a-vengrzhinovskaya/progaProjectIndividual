@@ -1,10 +1,15 @@
 ﻿namespace progaProjectIndividual.Characters {
     public class Warrior : Player {
-        protected override int Health { get; set; } = 90;
+        public override int MaxHealth { get; } = 90;
+        protected override int Health { get; set; }
         protected override int Damage { get; set; } = 25;
 
         //private delegate WarriorClone Ability();
         //private Ability Skill = MakeClone;
+
+        public Warrior() {
+            Health = MaxHealth;
+        }
 
         private WarriorClone MakeClone() {
             var clone = new WarriorClone();

@@ -5,6 +5,7 @@
 			for (var RoomNumber = 0; RoomNumber < 5; ++RoomNumber) {
 				GameManager.GetInstance.Move();
             }
+			GameManager.GetInstance.SaveCoins();
 		}
 	}
 }

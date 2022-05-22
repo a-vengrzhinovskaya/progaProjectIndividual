@@ -1,7 +1,12 @@
 ﻿namespace progaProjectIndividual.Characters {
     internal class Wizard : Player, IOriginator {
-        protected override int Health { get; set; } = 80;
+        public override int MaxHealth { get; } = 80;
+        protected override int Health { get; set; }
         protected override int Damage { get; set; } = 30;
+
+        public Wizard() {
+            Health = MaxHealth;
+        }
 
         public override object UseAbility() {
             return 1;
