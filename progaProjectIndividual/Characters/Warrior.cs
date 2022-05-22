@@ -2,7 +2,7 @@
     public class Warrior : Player {
         public override int MaxHealth { get; } = 90;
         protected override int Health { get; set; }
-        protected override int Damage { get; set; } = 25;
+        public override int Damage { get; set; } = 25;
 
         //private delegate WarriorClone Ability();
         //private Ability Skill = MakeClone;

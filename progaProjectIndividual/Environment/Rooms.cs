@@ -1,23 +1,23 @@
 ﻿namespace progaProjectIndividual {
     public abstract class Room {
-        public abstract void GetRoomEffect(CollectibleCoin coins, Player player);
+        public abstract void GetRoomEffect(CollectibleCoin coins, Player Player);
     }
 
     public class CoinRoom : Room {
-        public override void GetRoomEffect(CollectibleCoin coins, Player player) {
+        public override void GetRoomEffect(CollectibleCoin Coins, Player Player) {
             Console.WriteLine("\nYou found a rare coin!\n");
-            coins.ChangeAmount();
-            Console.WriteLine($"\nHP: {player.GetHP()}/{player.MaxHealth}");
+            Coins.ChangeAmount();
+            Console.WriteLine($"\nHP: {Player.GetHP()}/{Player.MaxHealth}");
         }
     }
 
     public class HealRoom : Room {
-        public override void GetRoomEffect(CollectibleCoin coins, Player player) {
+        public override void GetRoomEffect(CollectibleCoin Coins, Player Player) {
             Console.WriteLine("\nYour HP restored by 20.\n");
-            if (player.GetHP() < player.MaxHealth) {
-                player.Heal(20);
+            if (Player.GetHP() < Player.MaxHealth) {
+                Player.Heal(20);
             }
-            Console.WriteLine($"\nHP: {player.GetHP()}/{player.MaxHealth}");
+            Console.WriteLine($"\nHP: {Player.GetHP()}/{Player.MaxHealth}");
         }
     }
 
@@ -25,9 +25,13 @@
         //TODO: сюда запихать всех врагов
         //private List<Enemy> Enemies = new List<Enemy> 
 
-        public override void GetRoomEffect(CollectibleCoin coins, Player player) {
+        public override void GetRoomEffect(CollectibleCoin Coins, Player Player) {
             Console.WriteLine("It's enemy rooooom!!\n");
-            Console.WriteLine($"\nHP: {player.GetHP()}/{player.MaxHealth}");
+            Console.WriteLine($"\nHP: {Player.GetHP()}/{Player.MaxHealth}");
+        }
+
+        private void Fight(Player Player, Enemy Enemy) {
+
         }
     }
 }

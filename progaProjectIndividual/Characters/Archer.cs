@@ -2,7 +2,7 @@
     public class Archer : Player, IObservable {
         public override int MaxHealth { get; } = 100;
         protected override int Health { get; set; }
-        protected override int Damage { get; set; } = 20;
+        public override int Damage { get; set; } = 20;
 
         private List<IObserver> observers = new List<IObserver>();
 

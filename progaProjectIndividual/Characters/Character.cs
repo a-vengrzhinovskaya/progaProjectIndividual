@@ -2,7 +2,7 @@
     public abstract class Character {
         public abstract int MaxHealth { get; }
         protected abstract int Health { get; set; }
-        protected abstract int Damage { get; set; }
+        public abstract int Damage { get; set; }
 
         public void Attack(Character target) {
             target.Health -= Damage;

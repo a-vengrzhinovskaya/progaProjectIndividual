@@ -118,10 +118,10 @@ namespace progaProjectIndividual {
         private void NextRoom() {
             var Rand = new Random();
             var Chance = Rand.Next(0, 100);
-            if (Chance > 90) {
+            if (Chance >= 90) {
                 var Room = new CoinRoom();
                 Room.GetRoomEffect(Coins, Player);
-            } else if (Chance > 60) {
+            } else if (Chance >= 60) {
                 var Room = new HealRoom();
                 Room.GetRoomEffect(Coins, Player);
             } else {
