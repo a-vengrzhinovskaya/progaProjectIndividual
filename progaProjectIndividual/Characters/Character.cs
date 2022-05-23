@@ -1,6 +1,6 @@
 ﻿namespace progaProjectIndividual {
     public abstract class Character {
-        public abstract int MaxHealth { get; }
+        public abstract int MaxHealth { get; protected set; }
         protected abstract int Health { get; set; }
         public abstract int Damage { get; set; }
 

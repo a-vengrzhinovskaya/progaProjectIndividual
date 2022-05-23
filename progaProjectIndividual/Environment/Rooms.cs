@@ -1,4 +1,6 @@
-﻿namespace progaProjectIndividual {
+﻿using progaProjectIndividual.Characters;
+
+namespace progaProjectIndividual {
     public abstract class Room {
         public abstract void GetRoomEffect(CollectibleCoin coins, Player Player);
     }
@@ -22,16 +24,61 @@
     }
 
     public class EnemyRoom : Room {
-        //TODO: сюда запихать всех врагов
-        //private List<Enemy> Enemies = new List<Enemy> 
+        private List<Factory> Enemies = new List<Factory> { new SpiderFactory(), new SkeletonFactory(), new DemonFactory() };
 
         public override void GetRoomEffect(CollectibleCoin Coins, Player Player) {
-            Console.WriteLine("It's enemy rooooom!!\n");
-            Console.WriteLine($"\nHP: {Player.GetHP()}/{Player.MaxHealth}");
+            var Rand = new Random();
+            var Enemy = Enemies[Rand.Next(0, Enemies.Count - 1)].FactoryMethod();
+            Console.WriteLine($"You encountered a {Enemy.Name}!");
+            if (!Player.AbilityUsed) {
+                Console.WriteLine("\nATTACK 0           USE ABILITY 1\n");
+            } else {
+                Console.WriteLine("\nATTACK 0");
+            }
+
+            Fight(Player, Enemy);
         }
 
         private void Fight(Player Player, Enemy Enemy) {
+            while (Enemy.GetHP() > 0) {
+                if (!Player.AbilityUsed) {
+                    var Option = Console.ReadLine();
+                    if (Option == "0") {
+                        Player.Attack(Enemy);
+                        Console.WriteLine($"You attacked {Enemy.Name}!");
+                    } else if (Option == "1") {
+                        Player.UseAbility(Player, Enemy);
+                        Console.WriteLine($"You used your ability on {Enemy.Name}.");
+                        Console.WriteLine($"The {Enemy.Name} skips its turn.");
+                        Console.WriteLine($"\nyour HP: {Player.GetHP()}/{Player.MaxHealth}");
+                        Console.WriteLine($"\n{Enemy.Name} HP: {Enemy.GetHP()}/{Enemy.MaxHealth}");
+                        Player.AbilityUsed = true;
+                        continue;
+                    }
+                } else {
+                    var Option = Console.ReadLine();
+                    if (Option == "0") {
+                        Player.Attack(Enemy);
+                        Console.WriteLine($"You attacked {Enemy.Name}!");
+                    }
+                }
+                
+                if (Enemy.GetHP() >= 0) {
+                    Console.WriteLine($"{Enemy.Name} attacked you!");
+                    Enemy.Attack(Player);
+                } else {
+                    Console.WriteLine($"\nYou defeated the {Enemy.Name}!");
+                    Console.WriteLine($"your HP: {Player.GetHP()}/{Player.MaxHealth}");
+                    break;
+                }
+                
+                if (Player.GetHP() <= 0) {
+                    throw new Exception();
+                }
 
+                Console.WriteLine($"\nyour HP: {Player.GetHP()}/{Player.MaxHealth}");
+                Console.WriteLine($"\n{Enemy.Name} HP: {Enemy.GetHP()}/{Enemy.MaxHealth}");
+            }
         }
     }
 }

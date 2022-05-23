@@ -1,6 +1,6 @@
 ﻿namespace progaProjectIndividual.Characters {
     public class Archer : Player, IObservable {
-        public override int MaxHealth { get; } = 100;
+        public override int MaxHealth { get; protected set; } = 100;
         protected override int Health { get; set; }
         public override int Damage { get; set; } = 20;
 
@@ -10,8 +10,8 @@
             Health = MaxHealth;
         }
 
-        public override object UseAbility() {
-            return 1;
+        public override void UseAbility(Player Player, Enemy Enemy) {
+            
         }
 
         public void AddObserver(IObserver observer) {

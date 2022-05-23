@@ -1,6 +1,6 @@
 ﻿namespace progaProjectIndividual.Characters {
     internal class Wizard : Player, IOriginator {
-        public override int MaxHealth { get; } = 80;
+        public override int MaxHealth { get; protected set; } = 80;
         protected override int Health { get; set; }
         public override int Damage { get; set; } = 30;
 
@@ -8,8 +8,8 @@
             Health = MaxHealth;
         }
 
-        public override object UseAbility() {
-            return 1;
+        public override void UseAbility(Player Player, Enemy Enemy) {
+            
         }
 
         object IOriginator.GetMemento() {

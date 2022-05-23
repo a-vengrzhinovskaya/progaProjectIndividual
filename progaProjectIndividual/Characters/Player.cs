@@ -1,7 +1,9 @@
-﻿namespace progaProjectIndividual {
-    public abstract class Player: Character {
-        //protected abstract Skill Ability { get; set; }
+﻿using progaProjectIndividual.Characters;
 
-        public abstract object UseAbility();
+namespace progaProjectIndividual {
+    public abstract class Player: Character {
+        public bool AbilityUsed { get; set; } = false;
+
+        public abstract void UseAbility(Player Player, Enemy Enemy);
     }
 }
