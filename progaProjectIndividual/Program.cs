@@ -11,6 +11,7 @@
 					return;
 				}
             }
+            Console.WriteLine("You win!");
 			GameManager.GetInstance.SaveCoins();
 		}
 	}

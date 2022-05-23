@@ -1,8 +1,13 @@
 ﻿namespace progaProjectIndividual.Characters {
-    public abstract class Enemy : Character {
+    public abstract class Enemy : Character, IObserver {
         public abstract string Name { get; }
 
         public abstract void AttackPlayer(Player Player);
+
+        public void Update(Archer Attacker) {
+            Attacker.Damage /= 2;
+            getDamage(Attacker);
+        }
     }
 
     public class Spider : Enemy {

@@ -40,6 +40,10 @@ namespace progaProjectIndividual {
         }
 
         private void Fight(Player Player, Enemy Enemy) {
+            var Caretaker = new Caretaker();
+            if (!Player.AbilityUsed && Player is Wizard) {
+                Caretaker.SaveState((Wizard)Player);
+            }
             while (Enemy.GetHP() > 0) {
                 if (!Player.AbilityUsed) {
                     var Option = Console.ReadLine();
@@ -47,11 +51,16 @@ namespace progaProjectIndividual {
                         Player.Attack(Enemy);
                         Console.WriteLine($"You attacked {Enemy.Name}!");
                     } else if (Option == "1") {
-                        Player.UseAbility(Player, Enemy);
+                        Player.UseAbility(Player, Enemy, Caretaker);
                         Console.WriteLine($"You used your ability on {Enemy.Name}.");
                         Console.WriteLine($"The {Enemy.Name} skips its turn.");
                         Console.WriteLine($"\nyour HP: {Player.GetHP()}/{Player.MaxHealth}");
-                        Console.WriteLine($"\n{Enemy.Name} HP: {Enemy.GetHP()}/{Enemy.MaxHealth}");
+                        if (Enemy.GetHP() > 0) {
+                            Console.WriteLine($"\n{Enemy.Name} HP: {Enemy.GetHP()}/{Enemy.MaxHealth}");
+                        } else {
+                            Console.WriteLine($"\nYou defeated the {Enemy.Name}!");
+                            Console.WriteLine($"\nyour HP: {Player.GetHP()}/{Player.MaxHealth}");
+                        }
                         Player.AbilityUsed = true;
                         continue;
                     }
@@ -64,7 +73,7 @@ namespace progaProjectIndividual {
                 }
                 
                 if (Enemy.GetHP() >= 0) {
-                    Console.WriteLine($"{Enemy.Name} attacked you!");
+                    Console.WriteLine($"The {Enemy.Name} attacked you!");
                     Enemy.Attack(Player);
                 } else {
                     Console.WriteLine($"\nYou defeated the {Enemy.Name}!");

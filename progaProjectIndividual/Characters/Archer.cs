@@ -10,8 +10,11 @@
             Health = MaxHealth;
         }
 
-        public override void UseAbility(Player Player, Enemy Enemy) {
-            
+        public override void UseAbility(Player Player, Enemy Enemy, Caretaker Caretaker) {
+            AddObserver(Enemy);
+            NotifyObservers(this);
+            Console.WriteLine($"The {Enemy.Name} got {Damage} damage.");
+            RemoveObserver(Enemy);
         }
 
         public void AddObserver(IObserver observer) {
@@ -22,9 +25,9 @@
             observers.Remove(observer);
         }
 
-        public void NotifyObservers() {
+        public void NotifyObservers(Archer Attacker) {
             foreach (IObserver observer in observers) {
-                observer.Update();
+                observer.Update(Attacker);
             }
         }
     }
@@ -32,15 +35,10 @@
     public interface IObservable {
         public void AddObserver(IObserver observer);
         public void RemoveObserver(IObserver observer);
-        public void NotifyObservers();
+        public void NotifyObservers(Archer Attacker);
     }
 
     public interface IObserver {
-        void Update();
-    }
-    class ConcreteObserver : IObserver {
-        public void Update() {
-
-        }
+        void Update(Archer Attacker);
     }
 }

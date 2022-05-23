@@ -8,8 +8,9 @@
             Health = MaxHealth;
         }
 
-        public override void UseAbility(Player Player, Enemy Enemy) {
-            
+        public override void UseAbility(Player Player, Enemy Enemy, Caretaker Caretaker) {
+            Console.WriteLine("You restored your HP!");
+            Caretaker.RestoreState((Wizard)Player);
         }
 
         object IOriginator.GetMemento() {
@@ -33,14 +34,14 @@
     }
 
     public class Caretaker {
-        private object memento;
+        private object Мemento;
 
-        public void SaveState(IOriginator originator) {
-            memento = originator.GetMemento();
+        public void SaveState(IOriginator Оriginator) {
+            Мemento = Оriginator.GetMemento();
         }
 
-        public void RestoreState(IOriginator originator) {
-            originator.SetMemento(memento);
+        public void RestoreState(IOriginator Оriginator) {
+            Оriginator.SetMemento(Мemento);
         }
     }
 

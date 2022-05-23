@@ -20,7 +20,7 @@
             return clone;
         }
 
-        public override void UseAbility(Player Player, Enemy Enemy) {
+        public override void UseAbility(Player Player, Enemy Enemy, Caretaker Caretaker) {
             Console.WriteLine("You created your clone!");
             Console.WriteLine("You can attack now.");
             var WarriorClone = (Warrior)Clone();
@@ -34,12 +34,12 @@
                 Console.WriteLine($"The {Enemy.Name} attacked your clone!");
                 Enemy.Attack(WarriorClone);
 
-                Console.WriteLine($"\nyour HP: {Player.GetHP()}/{Player.MaxHealth}");
                 if (WarriorClone.GetHP() >= 0) {
                     Console.WriteLine($"\nclone HP: {WarriorClone.GetHP()}/{WarriorClone.MaxHealth}");
                 }
                 if (Enemy.GetHP() >= 0) {
                     Console.WriteLine($"\n{Enemy.Name} HP: {Enemy.GetHP()}/{Enemy.MaxHealth}");
+                    Console.WriteLine($"\nyour HP: {Player.GetHP()}/{Player.MaxHealth}");
                 }
             }
 
