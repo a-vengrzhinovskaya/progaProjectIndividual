@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.IO;
+using System.Collections.Generic;
 using System.Threading;
 using progaProjectIndividual.Characters;
 
@@ -6,7 +7,7 @@ namespace progaProjectIndividual {
 
     public sealed class GameManager {
         private const int WaitingTime = 800;
-        private const string SavePath = "C:/Users/aveng/source/repos/progaProjectIndividual/progaProjectIndividual/coins_data.xml";
+        private string SavePath;
         private static GameManager Instance;
         private Player Player;
         private CollectibleCoin Coins = new CollectibleCoin();
@@ -17,6 +18,11 @@ namespace progaProjectIndividual {
                 "You see a mysterious old man pointing to the left.\nListening to him or not is up to you.\n",
                 "In the distance you can see a tower.\nThere are two ways to it: to the right through the catacombs or to the left through the thorns."
         };
+
+        private GameManager() {
+            var Path = Directory.GetCurrentDirectory();
+            SavePath = $"{Path}/coins_data.bin";
+        }
 
         public static GameManager GetInstance {
             get {

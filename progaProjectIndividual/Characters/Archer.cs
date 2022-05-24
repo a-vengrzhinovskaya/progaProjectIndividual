@@ -13,7 +13,7 @@
         public override void UseAbility(Player Player, Enemy Enemy, Caretaker Caretaker) {
             AddObserver(Enemy);
             NotifyObservers(this);
-            Console.WriteLine($"The {Enemy.Name} got {Damage} damage.");
+            Console.WriteLine($"The {Enemy.Name} got {Damage / 2} damage.");
             RemoveObserver(Enemy);
         }
 

@@ -19,5 +19,9 @@
         public int GetHP() {
             return Health;
         }
+
+        public void SetHP(int HP) {
+            Health = HP;
+        }
     }
 }
