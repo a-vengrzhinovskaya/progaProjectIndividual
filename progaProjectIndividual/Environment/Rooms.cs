@@ -19,6 +19,9 @@ namespace progaProjectIndividual {
             if (Player.GetHP() < Player.MaxHealth) {
                 Player.Heal(20);
             }
+            if (Player.GetHP() > Player.MaxHealth) {
+                Player.SetHP(Player.MaxHealth);
+            }
             Console.WriteLine($"\nHP: {Player.GetHP()}/{Player.MaxHealth}");
         }
     }

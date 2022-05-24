@@ -7,6 +7,7 @@
         public void Update(Archer Attacker) {
             Attacker.Damage /= 2;
             getDamage(Attacker);
+            Attacker.Damage *= 2;
         }
     }
 

@@ -8,6 +8,7 @@
 				} catch {
 					Console.Clear();
 					Console.WriteLine("You died.");
+					GameManager.GetInstance.SaveCoins();
 					return;
 				}
             }

@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+﻿using System.Runtime.Serialization.Formatters.Binary;
 
 namespace progaProjectIndividual {
     [Serializable]
@@ -23,13 +23,13 @@ namespace progaProjectIndividual {
         }
 
         public void Serialize(FileStream file) {
-            var Formatter = new XmlSerializer(this.GetType());
+            var Formatter = new BinaryFormatter();
             Formatter.Serialize(file, this);
             file.Close();
         }
 
         public void Deserialize(FileStream file) {
-            var Formatter = new XmlSerializer(this.GetType());
+            var Formatter = new BinaryFormatter();
             var Deserialized = (CollectibleCoin)Formatter.Deserialize(file);
             CurrentCoinIndex = Deserialized.CurrentCoinIndex;
             Coins = Deserialized.Coins;
